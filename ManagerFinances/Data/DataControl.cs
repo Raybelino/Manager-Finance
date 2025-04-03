@@ -196,6 +196,48 @@ public class DataControl
         }
     }
 
+    // Metodo el cual edita los datos de la cuenta con el ID de la cuenta, nombre y saldo, con su manejo de excepciones.
+    public void EditAccount(int accountID, string Name, string Saldo)
+    {
+        using (var context = new FMContext())
+        {
+            var Account = context.Cuentas.FirstOrDefault(t => t.CuentaID == accountID);
+
+            if (Account != null)
+            {
+                Account.Nombre = Name;
+                Account.Saldo = decimal.Parse(Saldo);
+
+                context.SaveChanges();
+                MessageBox.Show("Transacción actualizada con éxito.");
+            }
+            else
+            {
+                MessageBox.Show("Transacción no encontrada.");
+            }
+        }
+    }
+
+    // Metodo el cual elimina la cuenta con el ID de la cuenta, con su manejo de excepciones.
+    public void DeleteAccount(int id)
+    {
+        using (var context = new FMContext())
+        {
+            var Account = context.Cuentas.Find(id);
+            if (Account != null)
+            {
+                context.Cuentas.Remove(Account);
+
+                context.SaveChanges();
+                MessageBox.Show("Transaccion eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Transaccion no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+
     // Metodo el cual añade una categoria con el nombre y el tipo de categoria, con su manejo de excepciones.
     public void AddCategory(string nombre, char tipo)
     {
