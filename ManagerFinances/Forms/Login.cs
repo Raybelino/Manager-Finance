@@ -11,7 +11,20 @@ namespace ManagerFinances
         {
             InitializeComponent();
         }
-        
+
+        // Cuando se de click a iniciar se comprobara si el usuario existe y
+        // permitira que el usuario entre al dashboard
+        private void bt_iniciar_Click(object sender, EventArgs e)
+        {
+            DataControl data = new DataControl();
+            if (data.Login(tb_gmail.Text, tb_Password.Text) > 0)
+            {
+                MessageBox.Show("Inicio de sesión exitoso.");
+                return;
+            }
+            MessageBox.Show("Credenciales incorrectas.");
+        }
+
         // Al momento de que se entra al textbox gmail
         private void tb_gmail_Enter(object sender, EventArgs e)
         {

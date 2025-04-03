@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\FMContext.cs" />
+    <Compile Include="Data\DataControl.cs" />
     <Compile Include="Entities\Account.cs" />
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Transaction.cs" />
