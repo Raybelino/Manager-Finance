@@ -59,6 +59,56 @@ public class DataControl
         }
     }
 
+    // Metodo el cual edita los datos del usuario con el ID del usuario, nombre, correo y contraseña, con su manejo de excepciones.
+    public void EditUser(int id, string name, string account, string password)
+    {
+        try
+        {
+            using (var context = new FMContext())
+            {
+                var usuario = context.Usuarios.FirstOrDefault(u => u.UsuarioID == id);
+
+                if (usuario != null)
+                {
+                    usuario.Nombre = name;
+                    usuario.Correo = account;
+                    usuario.Clave = password;
+
+                    context.SaveChanges();
+                    MessageBox.Show("Usuario actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Usuario no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Hubo un problema en la edicion del usuario, el error es: " + ex, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+    }
+
+    // Metodo el cual elimina el usuario con el ID del usuario, con su manejo de excepciones.
+    public void DeleteUser(int id)
+    {
+        using (var context = new FMContext())
+        {
+            var usuario = context.Usuarios.Find(id);
+            if (usuario != null)
+            {
+                context.Usuarios.Remove(usuario);
+
+                context.SaveChanges();
+                MessageBox.Show("Usuario eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Usuario no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+
     // Metodo el cual trae el nombre de la cuenta, el numero de transacciones y
     // el total del monto de las transacciones, se necesita el ID del usuario
     public List<dynamic> DataAccountWithTransaccion(int UserID)

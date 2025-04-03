@@ -4,6 +4,13 @@ using System.Windows.Forms;
 
 public class ValidationDataAdd
 {
+    // Metodo que valida si el textbox de nombre es diferente al placehorder,
+    // si no tiene espacio y si es mayor a 3 caracteres.
+    public bool ValidarName(string Name)
+    {
+        return Name != "Nombre" && !string.IsNullOrWhiteSpace(Name) && Name.Length >= 3;
+    }
+
     // Metodo que valida si el correo tiene al final el @gmail.com
     public bool ValidarAccount(string Account)
     {
