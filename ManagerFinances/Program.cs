@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ManagerFinances.Forms;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Windows.Forms;
@@ -19,16 +20,24 @@ namespace ManagerFinances
             // Se accede a la base de datos para comprobar si se creo y si un usuario ya existe
             using (var context = new FMContext())
             {
-                // Se inicia la base de datos en sqlserver
-                context.Database.Initialize(force: true);
-
-                SetDataBase();
+                bool dbExists = context.Database.Exists();
+                bool usersExist = context.Usuarios.Any();
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                // En caso de que la base de datos y el usuario existe se inicia el inicio de seccion
-                Application.Run(new Login());
+                if (!dbExists || !usersExist)
+                {
+                    // En caso de no existir la base de datos se crea y se inicia el registro de usuario
+                    // Tambien si no existe usuario se inicia el registro de usuario
+                    SetDataBase();
+                    Application.Run(new Sing_up());
+                }
+                else
+                {
+                    // En caso de que la base de datos y el usuario existe se inicia el inicio de seccion
+                    Application.Run(new Login());
+                }
             }
         }
 

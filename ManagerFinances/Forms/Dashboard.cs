@@ -36,6 +36,8 @@ namespace ManagerFinances.Forms
         // Cuando se hace click para acceder al gestor de usuario
         private void bt_User_Click(object sender, EventArgs e)
         {
+            Sing_up sing_Up = new Sing_up();
+            sing_Up.Show();
         }
 
         // Cuando se hace click para salir de la app
