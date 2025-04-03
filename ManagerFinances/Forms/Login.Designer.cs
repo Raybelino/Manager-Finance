@@ -88,6 +88,7 @@
             this.bt_iniciar.TabStop = false;
             this.bt_iniciar.Text = "Iniciar";
             this.bt_iniciar.UseVisualStyleBackColor = false;
+            this.bt_iniciar.Click += new System.EventHandler(this.bt_iniciar_Click);
             // 
             // panel1
             // 

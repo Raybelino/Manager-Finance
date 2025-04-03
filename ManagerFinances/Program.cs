@@ -22,12 +22,22 @@ namespace ManagerFinances
                 // Se inicia la base de datos en sqlserver
                 context.Database.Initialize(force: true);
 
+                SetDataBase();
+
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
                 // En caso de que la base de datos y el usuario existe se inicia el inicio de seccion
                 Application.Run(new Login());
             }
+        }
+
+        // Metodo que inserta un usuario, una cuenta, 5 categoria y una transaccion por defecto
+        private static void SetDataBase()
+        {
+            DataControl dataControl = new DataControl();
+
+            dataControl.AddUser("admin", "admin", "admin123");
         }
     }
 }
