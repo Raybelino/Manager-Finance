@@ -54,6 +54,8 @@ namespace ManagerFinances.Forms
         // Cuando se hace click para acceder al gestor de cuentas
         private void bt_cuentas_Click(object sender, EventArgs e)
         {
+            Account account = new Account(UserID);
+            account.Show();
         }
 
         // Cuando se hace click para actualizar el datagridview
