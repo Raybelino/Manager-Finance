@@ -62,6 +62,12 @@
     <Compile Include="Entities\Category.cs" />
     <Compile Include="Entities\Transaction.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Forms\Dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Dashboard.Designer.cs">
+      <DependentUpon>Dashboard.cs</DependentUpon>
+    </Compile>
     <Compile Include="Logic\PlaceholderTextBox.cs" />
     <Compile Include="Forms\Login.cs">
       <SubType>Form</SubType>

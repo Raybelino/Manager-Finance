@@ -58,4 +58,115 @@ public class DataControl
             }
         }
     }
+
+    // Metodo el cual trae el nombre de la cuenta, el numero de transacciones y
+    // el total del monto de las transacciones, se necesita el ID del usuario
+    public List<dynamic> DataAccountWithTransaccion(int UserID)
+    {
+        using (var context = new FMContext())
+        {
+            var resultado = context.Cuentas
+                .Where(c => c.UsuarioID == UserID)
+                .Select(c => new
+                {
+                    c.CuentaID,
+                    NombreCuenta = c.Nombre,
+                    NumeroTransacciones = c.Transacciones.Count(),
+                    TotalMonto = c.Transacciones.Sum(t => (decimal?)t.Monto) ?? 0
+                })
+                .ToList<dynamic>();
+            return resultado;
+        }
+    }
+
+    // Metodo el cual añade una transaccion con el ID de la cuenta, ID de la categoria,
+    // el monto y la descripcion, con su manejo de excepciones.
+    public void AddTransaction(int cuentaID, int categoriaID, decimal monto, string descripcion)
+    {
+        using (var context = new FMContext())
+        {
+            var cuenta = context.Cuentas.Find(cuentaID);
+            var categoria = context.Categorias.Find(categoriaID);
+
+            if (cuenta == null)
+            {
+                MessageBox.Show("Error: La cuenta no existe.");
+                return;
+            }
+
+            if (categoria == null)
+            {
+                MessageBox.Show("Error: La categoría no existe.");
+                return;
+            }
+
+            var Transaccion = new Transaction
+            {
+                CuentaID = cuentaID,
+                CategoriaID = categoriaID,
+                Monto = monto,
+                Fecha = DateTime.Now,
+                Descripcion = descripcion
+            };
+
+            context.Transacciones.Add(Transaccion);
+
+            cuenta.Saldo += monto;
+
+            context.SaveChanges();
+
+            MessageBox.Show("Transacción insertada correctamente.");
+        }
+    }
+
+    // Metodo el cual añade una cuenta con el ID de la cuenta, el nombre,y el saldo, con su manejo de excepciones.
+    public void AddAccount(int usuarioID, string nombre, decimal saldo)
+    {
+        using (var context = new FMContext())
+        {
+            var usuario = context.Usuarios.Find(usuarioID);
+
+            if (usuario == null)
+            {
+                MessageBox.Show("Error: El usuario no existe.");
+                return;
+            }
+
+            var Cuenta = new Account
+            {
+                UsuarioID = usuarioID,
+                Nombre = nombre,
+                Saldo = saldo
+            };
+
+            context.Cuentas.Add(Cuenta);
+            context.SaveChanges();
+
+            MessageBox.Show("Cuenta creada correctamente.");
+        }
+    }
+
+    // Metodo el cual añade una categoria con el nombre y el tipo de categoria, con su manejo de excepciones.
+    public void AddCategory(string nombre, char tipo)
+    {
+        using (var context = new FMContext())
+        {
+            if (tipo != 'I' && tipo != 'E')
+            {
+                MessageBox.Show("Error: El tipo debe ser 'I' (Ingreso) o 'E' (Egreso).");
+                return;
+            }
+
+            var Categoria = new Category
+            {
+                Nombre = nombre,
+                Tipo = tipo
+            };
+
+            context.Categorias.Add(Categoria);
+            context.SaveChanges();
+
+            MessageBox.Show($"Categoría '{nombre}' creada correctamente.");
+        }
+    }
 }
