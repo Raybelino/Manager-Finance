@@ -1,4 +1,5 @@
 ﻿
+using ManagerFinances.Forms;
 using System;
 using System.Windows.Forms;
 
@@ -20,6 +21,9 @@ namespace ManagerFinances
             if (data.Login(tb_gmail.Text, tb_Password.Text) > 0)
             {
                 MessageBox.Show("Inicio de sesión exitoso.");
+                Dashboard dashboard = new Dashboard(data.Login(tb_gmail.Text, tb_Password.Text));
+                dashboard.Show();
+                this.Hide();
                 return;
             }
             MessageBox.Show("Credenciales incorrectas.");

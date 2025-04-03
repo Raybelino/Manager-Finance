@@ -38,6 +38,13 @@ namespace ManagerFinances
             DataControl dataControl = new DataControl();
 
             dataControl.AddUser("admin", "admin", "admin123");
+            dataControl.AddAccount(1, "CuentaAdmin", 1200.00m);
+            dataControl.AddCategory("Comida", 'E');
+            dataControl.AddCategory("Salario", 'I');
+            dataControl.AddCategory("Transporte", 'E');
+            dataControl.AddCategory("Entretenimiento", 'E');
+            dataControl.AddCategory("Inversión", 'I');
+            dataControl.AddTransaction(1, 1, 120, "Transferencia");
         }
     }
 }
