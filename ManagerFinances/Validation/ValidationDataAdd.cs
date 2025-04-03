@@ -23,4 +23,23 @@ public class ValidationDataAdd
     {
         return password != "Contraseña" && password.Count() >= 8;
     }
+
+    // Metodo que valida si el nombre y el saldo de la cuenta no esta vacio y si el saldo es decimal
+    public bool ValidarAccount(string Name, string Saldo)
+    {
+        if (string.IsNullOrWhiteSpace(Name) || string.IsNullOrWhiteSpace(Saldo))
+        {
+            MessageBox.Show("Por favor, complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return false;
+        }
+        if (decimal.TryParse(Saldo, out decimal numero))
+        {
+            return true;
+        }
+        else
+        {
+            MessageBox.Show("Por favor, introduce un número.");
+            return false;
+        }
+    }
 }
