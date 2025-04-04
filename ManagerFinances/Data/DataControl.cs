@@ -169,6 +169,50 @@ public class DataControl
         }
     }
 
+    // Metodo el cual edita los datos de la transaccion con el ID de la transaccion,
+    // su descripcion, monto y categoria, con su manejo de excepciones.
+    public void EditTransaction(int transaccionID, string tb_Descripcion, string tb_Monto, ComboBox cb_Categoria)
+    {
+        using (var context = new FMContext())
+        {
+            var transaccion = context.Transacciones.FirstOrDefault(t => t.TransaccionID == transaccionID);
+
+            if (transaccion != null)
+            {
+                transaccion.Descripcion = tb_Descripcion;
+                transaccion.Monto = decimal.Parse(tb_Monto);
+                transaccion.CategoriaID = (int)cb_Categoria.SelectedValue;
+
+                context.SaveChanges();
+                MessageBox.Show("Transacción actualizada con éxito.");
+            }
+            else
+            {
+                MessageBox.Show("Transacción no encontrada.");
+            }
+        }
+    }
+
+    // Metodo el cual elimina la transaccion con el ID de la transaccion, con su manejo de excepciones.
+    public void DeleteTransaction(int id)
+    {
+        using (var context = new FMContext())
+        {
+            var transaction = context.Transacciones.Find(id);
+            if (transaction != null)
+            {
+                context.Transacciones.Remove(transaction);
+
+                context.SaveChanges();
+                MessageBox.Show("Transaccion eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Transaccion no encontrado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+    }
+
     // Metodo el cual añade una cuenta con el ID de la cuenta, el nombre,y el saldo, con su manejo de excepciones.
     public void AddAccount(int usuarioID, string nombre, decimal saldo)
     {

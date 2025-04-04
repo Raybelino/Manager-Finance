@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ManagerFinances.Forms
@@ -49,6 +42,8 @@ namespace ManagerFinances.Forms
         // Cuando se hace click para acceder al gestor de transacciones
         private void bt_Transactions_Click(object sender, EventArgs e)
         {
+            Transation transaction = new Transation(UserID);
+            transaction.Show();
         }
 
         // Cuando se hace click para acceder al gestor de cuentas

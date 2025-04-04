@@ -24,6 +24,32 @@ public class ValidationDataAdd
         return password != "Contraseña" && password.Count() >= 8;
     }
 
+    // Metodo que valida si el monto es diferente a 0
+    public bool ValidarMonto(decimal monto)
+    {
+        return monto > 0;
+    }
+
+    // Metodo que valida si la descripcion y monto de la transaccion no tiene espacio y
+    // si se tiene algo seleccionado en el comboBox, y se ve si el monto es un decimal
+    public bool ValidarTransaccion(string tb_Descripcion, string tb_Monto, ComboBox cb_Categoria)
+    {
+        if (string.IsNullOrWhiteSpace(tb_Descripcion) || string.IsNullOrWhiteSpace(tb_Monto) || cb_Categoria.SelectedIndex == -1)
+        {
+            MessageBox.Show("Por favor, complete todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return false;
+        }
+        if (decimal.TryParse(tb_Monto, out decimal numero))
+        {
+            return true;
+        }
+        else
+        {
+            MessageBox.Show("Por favor, introduce un número.");
+            return false;
+        }
+    }
+
     // Metodo que valida si el nombre y el saldo de la cuenta no esta vacio y si el saldo es decimal
     public bool ValidarAccount(string Name, string Saldo)
     {
