@@ -28,4 +28,4 @@ Se inicia desde Microsoft Visual Studio o desde su ejecutable que se encuentra e
 `C:\...\GitHub\Manager-Finance\ManagerFinances\bin\Debug\ManagerFinances.exe`
 
 > [!NOTE]
-> La instalacion de la base de datos se hace automaticamente en sqlserver, se puede cambiar el cliente en **App.config**, la variable**"providerName"**.
+> La instalacion de la base de datos se hace automaticamente en sqlserver, se puede cambiar el cliente en **App.config**, la variable **"providerName"**.
