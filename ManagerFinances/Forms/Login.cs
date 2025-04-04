@@ -1,5 +1,4 @@
-﻿
-using ManagerFinances.Forms;
+﻿using ManagerFinances.Forms;
 using System;
 using System.Windows.Forms;
 
